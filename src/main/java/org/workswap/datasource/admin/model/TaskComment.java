@@ -7,10 +7,12 @@ import org.workswap.datasource.central.model.User;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class TaskComment {
 
     public TaskComment(String content,

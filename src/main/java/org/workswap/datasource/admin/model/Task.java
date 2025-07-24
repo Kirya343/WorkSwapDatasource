@@ -12,10 +12,12 @@ import org.workswap.datasource.central.model.User;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class Task {
 
     public Task(String name,
