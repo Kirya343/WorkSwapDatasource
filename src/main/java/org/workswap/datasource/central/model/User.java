@@ -39,6 +39,7 @@ public class User {
         this.avatarUrl = avatarUrl;
         this.role = role;
         this.termsAccepted = termsAccepted;
+        this.termsAcceptanceDate = LocalDateTime.now();
     }
 
     @Id
