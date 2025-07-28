@@ -9,6 +9,7 @@ import java.util.Map;
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.datasource.central.model.enums.PriceType;
 import org.workswap.datasource.central.model.listingModels.Category;
+import org.workswap.datasource.central.model.listingModels.FavoriteListing;
 import org.workswap.datasource.central.model.listingModels.Image;
 import org.workswap.datasource.central.model.listingModels.ListingTranslation;
 import org.workswap.datasource.central.model.listingModels.Location;
