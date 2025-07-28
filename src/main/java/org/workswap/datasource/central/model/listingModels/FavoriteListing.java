@@ -1,4 +1,4 @@
-package org.workswap.datasource.central.model;
+package org.workswap.datasource.central.model.listingModels;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.workswap.datasource.central.model.Listing;
+import org.workswap.datasource.central.model.User;
 
 @Getter
 @Entity
