@@ -9,26 +9,15 @@ import org.workswap.datasource.central.model.User;
 import org.workswap.datasource.central.model.chat.Conversation;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation, Long> {
 
-    // Найти разговор между двумя пользователями
-    @Query("SELECT c FROM Conversation c WHERE :user1 MEMBER OF c.participants AND :user2 MEMBER OF c.participants AND SIZE(c.participants) = 2")
-    Optional<Conversation> findBetweenUsers(@Param("user1") User user1, @Param("user2") User user2);
-
     // Найти все разговоры пользователя
-    @Query("SELECT c FROM Conversation c WHERE :user MEMBER OF c.participants")
+    @Query("SELECT cp.conversation FROM ConversationParticipant cp " +
+       "JOIN FETCH cp.conversation.participants p " +
+       "WHERE cp.user = :user")
     List<Conversation> findAllByParticipant(@Param("user") User user);
-
-    // Найти разговор между двумя пользователями и объявлением
-    @Query("SELECT c FROM Conversation c WHERE :user1 MEMBER OF c.participants AND :user2 MEMBER OF c.participants AND c.listing = :listing AND SIZE(c.participants) = 2")
-    Optional<Conversation> findBetweenUsersAndListing(@Param("user1") User user1, @Param("user2") User user2, @Param("listing") Listing listing);
-
-    // Проверка существования разговора между двумя пользователями
-    @Query("SELECT COUNT(c) > 0 FROM Conversation c WHERE :user1 MEMBER OF c.participants AND :user2 MEMBER OF c.participants AND SIZE(c.participants) = 2")
-    boolean existsBetweenUsers(@Param("user1") User user1, @Param("user2") User user2);
 
     List<Conversation> findAllByListing(Listing listing);
 }

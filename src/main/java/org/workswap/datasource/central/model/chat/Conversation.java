@@ -19,9 +19,12 @@ import org.workswap.datasource.central.model.User;
 @NoArgsConstructor
 public class Conversation {
 
-    public Conversation(Set<User> participants,
+    public Conversation(Set<User> users,
                         Listing listing) {
-        this.participants = participants;
+        for (User user : users) {
+            ConversationParticipant participant = new ConversationParticipant(this, user);
+            participants.add(participant);
+        }
         this.listing = listing;
     }
 
@@ -29,15 +32,13 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "conversation_participants",
-        joinColumns = @JoinColumn(name = "conversation_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> participants = new HashSet<>();
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<ConversationParticipant> participants = new HashSet<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Setter
+    private boolean temporary = true;
 
     @Setter
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -62,6 +63,7 @@ public class Conversation {
 
     public User getInterlocutor(User currentUser) {
         return participants.stream()
+                .map(ConversationParticipant::getUser)
                 .filter(user -> !user.equals(currentUser))
                 .findFirst()
                 .orElse(null);

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.datasource.admin.model.Task;
-import org.workswap.datasource.central.model.chat.Conversation;
+import org.workswap.datasource.central.model.chat.ConversationParticipant;
 import org.workswap.datasource.central.model.enums.Role;
 import org.workswap.datasource.central.model.listingModels.Location;
 
@@ -81,8 +81,8 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Listing> listings = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "participants")
-    private Set<Conversation> conversations = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ConversationParticipant> conversationParticipants = new HashSet<>();
 
     @Setter
     @Enumerated(EnumType.STRING)

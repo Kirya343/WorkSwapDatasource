@@ -1,6 +1,8 @@
 package org.workswap.datasource.central.model.DTOs;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -8,6 +10,8 @@ import java.time.LocalDateTime;
 // Новый DTO класс
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConversationDTO {
     private Long id;
     private String interlocutorName;
@@ -18,5 +22,5 @@ public class ConversationDTO {
     private String formattedLastMessageTime;
     private ListingDTO listing;
     private boolean hasNewMessage;
-
+    private boolean temporary;
 }
