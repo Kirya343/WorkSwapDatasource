@@ -93,4 +93,8 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
         
     @EntityGraph(attributePaths = "translations")
     Optional<Listing> findWithTranslationsById(@NonNull Long id);
+
+
+    @Query(value = "select count(*) from favorite_listing where listing_id = :listingId", nativeQuery = true)
+    int countFavoritesByListingId(@Param("listingId") Long listingId);
 }
