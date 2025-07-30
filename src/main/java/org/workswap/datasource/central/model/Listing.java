@@ -3,13 +3,14 @@ package org.workswap.datasource.central.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.datasource.central.model.enums.PriceType;
 import org.workswap.datasource.central.model.listingModels.Category;
-import org.workswap.datasource.central.model.listingModels.FavoriteListing;
 import org.workswap.datasource.central.model.listingModels.Image;
 import org.workswap.datasource.central.model.listingModels.ListingTranslation;
 import org.workswap.datasource.central.model.listingModels.Location;
@@ -80,8 +81,8 @@ public class Listing {
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<FavoriteListing> favorites;
+    @ManyToMany(mappedBy = "favoriteListings")
+    private Set<User> favoredByUsers = new HashSet<>();
 
     @Setter
     private double averageRating = 0.0;

@@ -84,6 +84,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ConversationParticipant> conversationParticipants = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+        name = "favorite_listing",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "listing_id")
+    )
+    private Set<Listing> favoriteListings = new HashSet<>();
+
     @Setter
     @Enumerated(EnumType.STRING)
     private Role role;
