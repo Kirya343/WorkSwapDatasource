@@ -1,7 +1,8 @@
 package org.workswap.datasource.admin.model.enums;
 
 public enum TaskType {
-    DEVELOPMENT("Разработка"),
+    DEVELOPMENT_BACKEND("Разработка(FE)"),
+    DEVELOPMENT_FRONTEND("Разработка(BE)"),
     CONTENT_UPDATE("Дополнение контента"),
     MODERATION("Модерация"),
     DESIGN("Дизайн"),

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.workswap.datasource.admin.model.enums.Status;
+import org.workswap.datasource.admin.model.enums.TaskStatus;
 import org.workswap.datasource.admin.model.enums.TaskType;
 import org.workswap.datasource.central.model.User;
 
@@ -51,7 +51,7 @@ public class Task {
 
     @Setter
     @Enumerated(EnumType.STRING)
-    private Status status = Status.NEW;
+    private TaskStatus status = TaskStatus.NEW;
 
     @Setter
     @Enumerated(EnumType.STRING)
@@ -75,8 +75,8 @@ public class Task {
 
     @Transient // чтобы Hibernate не пытался сохранять это поле в БД
     public Duration getDuration() {
-        if (createdAt != null && deadline != null) {
-            return Duration.between(createdAt, deadline);
+        if (deadline != null) {
+            return Duration.between(LocalDateTime.now(), deadline);
         }
         return null;
     }

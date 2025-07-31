@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.workswap.datasource.admin.model.Task;
-import org.workswap.datasource.admin.model.enums.Status;
+import org.workswap.datasource.admin.model.enums.TaskStatus;
 
 @Repository
 @Profile("backoffice")
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    List<Task> findByStatus(Status status);
+    List<Task> findByStatus(TaskStatus status);
     Task findByName(String name);
 
     List<Task> findByExecutorId(Long executorId);

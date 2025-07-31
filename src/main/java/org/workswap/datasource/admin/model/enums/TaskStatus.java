@@ -1,6 +1,6 @@
 package org.workswap.datasource.admin.model.enums;
 
-public enum Status {
+public enum TaskStatus {
     NEW("Новая"),
     IN_PROGRESS("В процессе"),
     COMPLETED("Завершена"),
@@ -8,7 +8,7 @@ public enum Status {
 
     private final String displayName;
 
-    Status(String displayName) {
+    TaskStatus(String displayName) {
         this.displayName = displayName;
     }
 
