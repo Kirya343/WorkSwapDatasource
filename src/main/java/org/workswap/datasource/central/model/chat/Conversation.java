@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.workswap.datasource.central.model.Listing;
@@ -62,13 +63,15 @@ public class Conversation {
     private transient User interlocutor; // Временное поле для хранения собеседника
 
     public User getInterlocutor(User currentUser) {
+        Long currentUserId = currentUser.getId();
+
         return participants.stream()
                 .map(ConversationParticipant::getUser)
-                .filter(user -> !user.equals(currentUser))
+                .filter(user -> !Objects.equals(user.getId(), currentUserId))
                 .findFirst()
                 .orElse(null);
     }
-
+    
     // Получить последнее сообщение
     public Message getLastMessage() {
         return messages.isEmpty() ? null : messages.get(messages.size() - 1);
