@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.workswap.datasource.central.model.User;
-import org.workswap.datasource.central.model.chat.Conversation;
+import org.workswap.datasource.central.model.chat.Chat;
 import org.workswap.datasource.central.model.chat.Message;
 
 import java.util.List;
@@ -20,16 +20,16 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByReceiverAndReadFalse(User receiver);
 
     // Получить все непрочитанные сообщения для пользователя в конкретном разговоре
-    List<Message> findByConversationAndReceiverAndReadFalse(Conversation conversation, User receiver);
+    List<Message> findByChatAndReceiverAndReadFalse(Chat chat, User receiver);
 
-    List<Message> findByConversationOrderBySentAtAsc(Conversation conversation);
+    List<Message> findByChatOrderBySentAtAsc(Chat chat);
 
     // Новый метод: получить сообщения по ID разговора (с сортировкой по времени)
-    Page<Message> findByConversationIdOrderBySentAtDesc(Long conversationId, Pageable pageable);
+    Page<Message> findByChatIdOrderBySentAtDesc(Long chatId, Pageable pageable);
 
     @Modifying
-    @Query("UPDATE Message m SET m.read = true WHERE m.conversation.id = :conversationId AND m.receiver.id = :userId AND m.read = false")
-    void markMessagesAsRead(@Param("conversationId") Long conversationId, @Param("userId") Long userId);
+    @Query("UPDATE Message m SET m.read = true WHERE m.chat.id = :chatId AND m.receiver.id = :userId AND m.read = false")
+    void markMessagesAsRead(@Param("chatId") Long chatId, @Param("userId") Long userId);
 }
 
 

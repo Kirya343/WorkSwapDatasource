@@ -16,22 +16,22 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Getter
-@Table(name = "conversation_participants")
-public class ConversationParticipant {
+@Table(name = "chat_participants")
+public class ChatParticipant {
 
-    public ConversationParticipant(Conversation conversation, User user) {
-        this.conversation = conversation;
+    public ChatParticipant(Chat chat, User user) {
+        this.chat = chat;
         this.user = user;
-        this.id = new ConversationParticipantId(conversation.getId(), user.getId());
+        this.id = new ChatParticipantId(chat.getId(), user.getId());
     }
 
     @EmbeddedId
-    private ConversationParticipantId id = new ConversationParticipantId();
+    private ChatParticipantId id = new ChatParticipantId();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("conversationId")
-    @JoinColumn(name = "conversation_id")
-    private Conversation conversation;
+    @MapsId("chatId")
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     @Setter
     private boolean chatTermsAccepted = false;

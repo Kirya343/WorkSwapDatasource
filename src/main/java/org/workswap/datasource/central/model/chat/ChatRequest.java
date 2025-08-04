@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class ConversationRequest {
-    private Long conversationId;
+public class ChatRequest {
+    private Long chatId;
 }

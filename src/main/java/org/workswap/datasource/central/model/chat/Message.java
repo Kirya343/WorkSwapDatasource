@@ -15,11 +15,11 @@ import org.workswap.datasource.central.model.User;
 @NoArgsConstructor
 public class Message {
 
-    public Message(Conversation conversation,
+    public Message(Chat chat,
                    User sender,
                    User receiver,
                    String text) {
-        this.conversation = conversation;
+        this.chat = chat;
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
@@ -30,8 +30,8 @@ public class Message {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)  // Или убедитесь, что всегда работаете в транзакции
-    @JoinColumn(name = "conversation_id")
-    private Conversation conversation;
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")

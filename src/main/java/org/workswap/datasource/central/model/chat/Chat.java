@@ -18,12 +18,12 @@ import org.workswap.datasource.central.model.User;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Conversation {
+public class Chat {
 
-    public Conversation(Set<User> users,
+    public Chat(Set<User> users,
                         Listing listing) {
         for (User user : users) {
-            ConversationParticipant participant = new ConversationParticipant(this, user);
+            ChatParticipant participant = new ChatParticipant(this, user);
             participants.add(participant);
         }
         this.listing = listing;
@@ -33,8 +33,8 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<ConversationParticipant> participants = new HashSet<>();
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<ChatParticipant> participants = new HashSet<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -42,7 +42,7 @@ public class Conversation {
     private boolean temporary = true;
 
     @Setter
-    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Message> messages = new ArrayList<>();
 
     @ManyToOne
@@ -66,7 +66,7 @@ public class Conversation {
         Long currentUserId = currentUser.getId();
 
         return participants.stream()
-                .map(ConversationParticipant::getUser)
+                .map(ChatParticipant::getUser)
                 .filter(user -> !Objects.equals(user.getId(), currentUserId))
                 .findFirst()
                 .orElse(null);

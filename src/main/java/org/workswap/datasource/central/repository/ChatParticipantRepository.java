@@ -9,45 +9,45 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.workswap.datasource.central.model.Listing;
 import org.workswap.datasource.central.model.User;
-import org.workswap.datasource.central.model.chat.Conversation;
-import org.workswap.datasource.central.model.chat.ConversationParticipant;
+import org.workswap.datasource.central.model.chat.Chat;
+import org.workswap.datasource.central.model.chat.ChatParticipant;
 
 import jakarta.annotation.Nullable;
 
 @Repository
-public interface ConversationParticipantRepository extends JpaRepository<ConversationParticipant, Long> {
+public interface ChatParticipantRepository extends JpaRepository<ChatParticipant, Long> {
 
     // Найти запись по пользователю и разговору
-    ConversationParticipant findByUserAndConversation(User user, Conversation conversation);
+    ChatParticipant findByUserAndChat(User user, Chat chat);
 
     // Найти все записи по пользователю
-    List<ConversationParticipant> findAllByUser(User user);
+    List<ChatParticipant> findAllByUser(User user);
 
     // Найти все разговоры по пользователю (альтернатива через @Query)
-    @Query("SELECT cp.conversation FROM ConversationParticipant cp WHERE cp.user = :user")
-    List<Conversation> findAllConversationsByUser(@Param("user") User user);
+    @Query("SELECT cp.chat FROM ChatParticipant cp WHERE cp.user = :user")
+    List<Chat> findAllChatsByUser(@Param("user") User user);
 
-    @Query("SELECT c FROM Conversation c " +
+    @Query("SELECT c FROM Chat c " +
        "WHERE (:listing IS NULL AND c.listing IS NULL OR c.listing = :listing) " +
        "AND SIZE(c.participants) = 2 " +
        "AND EXISTS (SELECT 1 FROM c.participants p WHERE p.user = :user1) " +
        "AND EXISTS (SELECT 1 FROM c.participants p WHERE p.user = :user2)")
-    Optional<Conversation> findConversationBetweenUsers(
+    Optional<Chat> findChatBetweenUsers(
             @Param("user1") User user1,
             @Param("user2") User user2,
             @Param("listing") @Nullable Listing listing); 
 
     // Проверка существования разговора между двумя пользователями
     @Query("""
-        SELECT COUNT(cp1) > 0 FROM ConversationParticipant cp1
-        JOIN ConversationParticipant cp2 ON cp1.conversation = cp2.conversation
+        SELECT COUNT(cp1) > 0 FROM ChatParticipant cp1
+        JOIN ChatParticipant cp2 ON cp1.chat = cp2.chat
         WHERE cp1.user = :user1 AND cp2.user = :user2
-        GROUP BY cp1.conversation
-        HAVING COUNT(cp1.conversation.participants) = 2
+        GROUP BY cp1.chat
+        HAVING COUNT(cp1.chat.participants) = 2
     """)
     boolean existsBetweenUsers(@Param("user1") User user1, @Param("user2") User user2);
 
     // Все участники разговоров по объявлению
-    @Query("SELECT cp FROM ConversationParticipant cp WHERE cp.conversation.listing = :listing")
-    List<ConversationParticipant> findAllByListing(@Param("listing") Listing listing);
+    @Query("SELECT cp FROM ChatParticipant cp WHERE cp.chat.listing = :listing")
+    List<ChatParticipant> findAllByListing(@Param("listing") Listing listing);
 }

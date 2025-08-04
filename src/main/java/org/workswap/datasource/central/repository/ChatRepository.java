@@ -6,18 +6,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.workswap.datasource.central.model.Listing;
 import org.workswap.datasource.central.model.User;
-import org.workswap.datasource.central.model.chat.Conversation;
+import org.workswap.datasource.central.model.chat.Chat;
 
 import java.util.List;
 
 @Repository
-public interface ConversationRepository extends JpaRepository<Conversation, Long> {
+public interface ChatRepository extends JpaRepository<Chat, Long> {
 
     // Найти все разговоры пользователя
-    @Query("SELECT cp.conversation FROM ConversationParticipant cp " +
-       "JOIN FETCH cp.conversation.participants p " +
+    @Query("SELECT cp.chat FROM ChatParticipant cp " +
+       "JOIN FETCH cp.chat.participants p " +
        "WHERE cp.user = :user")
-    List<Conversation> findAllByParticipant(@Param("user") User user);
+    List<Chat> findAllByParticipant(@Param("user") User user);
 
-    List<Conversation> findAllByListing(Listing listing);
+    List<Chat> findAllByListing(Listing listing);
 }

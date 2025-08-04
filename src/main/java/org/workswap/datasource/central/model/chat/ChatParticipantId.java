@@ -11,16 +11,16 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @Getter
 @NoArgsConstructor
-public class ConversationParticipantId implements Serializable {
+public class ChatParticipantId implements Serializable {
 
-    @Column(name = "conversation_id")
-    private Long conversationId;
+    @Column(name = "chat_id")
+    private Long chatId;
 
     @Column(name = "user_id")
     private Long userId;
 
-    public ConversationParticipantId(Long conversationId, Long userId) {
-        this.conversationId = conversationId;
+    public ChatParticipantId(Long chatId, Long userId) {
+        this.chatId = chatId;
         this.userId = userId;
     }
 
@@ -28,14 +28,14 @@ public class ConversationParticipantId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ConversationParticipantId)) return false;
-        ConversationParticipantId that = (ConversationParticipantId) o;
-        return Objects.equals(conversationId, that.conversationId) &&
+        if (!(o instanceof ChatParticipantId)) return false;
+        ChatParticipantId that = (ChatParticipantId) o;
+        return Objects.equals(chatId, that.chatId) &&
                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(conversationId, userId);
+        return Objects.hash(chatId, userId);
     }
 }

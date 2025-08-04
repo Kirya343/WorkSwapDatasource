@@ -68,4 +68,6 @@ public interface StatsRepository extends JpaRepository<StatSnapshot, Long>{
         @Param("interval") StatSnapshot.IntervalType interval,
         @Param("metric") String metric
     );
+    
+    List<StatSnapshot> findAllByListingId(Long listingId);
 }

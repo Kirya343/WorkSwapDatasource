@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.datasource.admin.model.Task;
-import org.workswap.datasource.central.model.chat.ConversationParticipant;
+import org.workswap.datasource.central.model.chat.ChatParticipant;
 import org.workswap.datasource.central.model.enums.Role;
 import org.workswap.datasource.central.model.listingModels.Location;
 
@@ -82,7 +82,7 @@ public class User {
     private List<Listing> listings = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ConversationParticipant> conversationParticipants = new HashSet<>();
+    private Set<ChatParticipant> chatParticipants = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -121,10 +121,12 @@ public class User {
     private boolean termsAccepted = false; // Приняты ли условия использования
 
     @Setter
-    @Column(nullable = false)
     private LocalDateTime termsAcceptanceDate;
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+    private List<Review> profileReviews;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @Setter
