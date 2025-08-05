@@ -3,8 +3,8 @@ package org.workswap.datasource.central.model;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.workswap.datasource.central.model.enums.Importance;
-import org.workswap.datasource.central.model.enums.NotificationType;
+import org.workswap.common.enums.Importance;
+import org.workswap.common.enums.NotificationType;
 
 import jakarta.persistence.*;
 import lombok.Getter;

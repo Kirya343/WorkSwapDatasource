@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.workswap.datasource.central.model.enums.PriceType;
+import org.workswap.common.enums.PriceType;
 import org.workswap.datasource.central.model.listingModels.Category;
 import org.workswap.datasource.central.model.listingModels.Image;
 import org.workswap.datasource.central.model.listingModels.ListingTranslation;

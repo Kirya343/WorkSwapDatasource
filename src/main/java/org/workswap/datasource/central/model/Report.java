@@ -3,9 +3,9 @@ package org.workswap.datasource.central.model;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.workswap.datasource.central.model.enums.ObjectType;
-import org.workswap.datasource.central.model.enums.ReportReason;
-import org.workswap.datasource.central.model.enums.ReportStatus;
+import org.workswap.common.enums.ObjectType;
+import org.workswap.common.enums.ReportReason;
+import org.workswap.common.enums.ReportStatus;
 
 import jakarta.persistence.*;
 import lombok.Getter;

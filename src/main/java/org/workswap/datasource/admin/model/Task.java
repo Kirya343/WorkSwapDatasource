@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.workswap.datasource.admin.model.enums.TaskStatus;
-import org.workswap.datasource.admin.model.enums.TaskType;
+import org.workswap.common.enums.TaskStatus;
+import org.workswap.common.enums.TaskType;
 import org.workswap.datasource.central.model.User;
 
 import jakarta.persistence.*;

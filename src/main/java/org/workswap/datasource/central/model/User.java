@@ -10,7 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.datasource.admin.model.Task;
 import org.workswap.datasource.central.model.chat.ChatParticipant;
-import org.workswap.datasource.central.model.enums.Role;
+import org.workswap.common.enums.Role;
 import org.workswap.datasource.central.model.listingModels.Location;
 
 import java.time.LocalDateTime;

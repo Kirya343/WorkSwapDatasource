@@ -11,7 +11,7 @@
 
 	<groupId>org.workswap</groupId>
 	<artifactId>workswap-datasource</artifactId>
-	<version>1.0.12</version>
+	<version>1.0.13</version>
 	
 	<distributionManagement>
         <repository>
@@ -19,6 +19,13 @@
             <url>https://maven.pkg.github.com/Kirya343/WorkSwapDatasource</url>
         </repository>
     </distributionManagement>
+
+	<repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/Kirya343/WorkSwapCommon</url>
+        </repository>
+    </repositories>
 
 	<properties>
         <java.version>21</java.version>
@@ -30,6 +37,12 @@
     </properties>
 
 	<dependencies>
+		<dependency>
+            <groupId>org.workswap</groupId>
+            <artifactId>workswap-common</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.workswap.datasource.central.model.User;
-import org.workswap.datasource.central.model.enums.Role;
+import org.workswap.common.enums.Role;
 
 import java.util.List;
 import java.util.Optional;
