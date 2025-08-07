@@ -10,8 +10,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.datasource.admin.model.Task;
 import org.workswap.datasource.central.model.chat.ChatParticipant;
-import org.workswap.common.enums.Role;
 import org.workswap.datasource.central.model.listingModels.Location;
+import org.workswap.datasource.central.model.user.Role;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,13 +31,13 @@ public class User {
                 String email,
                 String sub,
                 String avatarUrl,
-                Role role,
+                Set<Role> roles,
                 boolean termsAccepted) {
         this.name = name;
         this.email = email;
         this.sub = sub;
         this.avatarUrl = avatarUrl;
-        this.role = role;
+        this.roles = roles;
         this.termsAccepted = termsAccepted;
         this.termsAcceptanceDate = LocalDateTime.now();
     }
@@ -92,9 +92,8 @@ public class User {
     )
     private Set<Listing> favoriteListings = new HashSet<>();
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @Setter
     private boolean locked = false;

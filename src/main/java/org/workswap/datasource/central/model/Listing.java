@@ -14,7 +14,6 @@ import org.workswap.datasource.central.model.listingModels.Category;
 import org.workswap.datasource.central.model.listingModels.Image;
 import org.workswap.datasource.central.model.listingModels.ListingTranslation;
 import org.workswap.datasource.central.model.listingModels.Location;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
