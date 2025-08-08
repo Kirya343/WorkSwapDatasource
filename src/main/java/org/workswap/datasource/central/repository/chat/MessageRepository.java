@@ -1,4 +1,4 @@
-package org.workswap.datasource.central.repository;
+package org.workswap.datasource.central.repository.chat;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

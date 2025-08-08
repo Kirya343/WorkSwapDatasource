@@ -1,4 +1,4 @@
-package org.workswap.datasource.central.repository;
+package org.workswap.datasource.central.repository.chat;
 
 import java.util.List;
 import java.util.Optional;
