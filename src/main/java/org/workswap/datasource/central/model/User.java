@@ -105,7 +105,7 @@ public class User {
     private String avatarType; // "uploaded", "google", "default"
 
     @Setter
-    private Double averageRating = 0.0; // Средний рейтинг пользователя
+    private Double rating = 0.0; // Средний рейтинг пользователя
 
     @Setter
     private String phone;

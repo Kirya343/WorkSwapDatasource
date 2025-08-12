@@ -84,7 +84,7 @@ public class Listing {
     private Set<User> favoredByUsers = new HashSet<>();
 
     @Setter
-    private double averageRating = 0.0;
+    private double rating = 0.0;
 
     @Setter
     private String imagePath;
