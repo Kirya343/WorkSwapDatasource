@@ -37,8 +37,10 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
     List<Listing> findListByActiveTrueAndTestModeFalse();
 
     Page<Listing> findByCategoryAndActiveTrue(String category, Pageable pageable);
+    
     @Query("SELECT l FROM Listing l WHERE l.active = true AND l.category = :category")
     Page<Listing> findActiveByCategory(@Param("category") String category, Pageable pageable);
+
     @Query("SELECT l FROM Listing l WHERE l.category = :category AND l.id != :excludeId AND l.active = true ORDER BY l.createdAt DESC")
     List<Listing> findByCategoryAndIdNot(@Param("category") Category category, @Param("excludeId") Long excludeId, Pageable pageable);
 
@@ -50,6 +52,9 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
     @Query("SELECT l FROM Listing l JOIN l.communities c WHERE c = :language AND l.active = true ")
     List<Listing> findByCommunityAndActiveTrue(@Param("language") String language);
+
+    @Query("SELECT DISTINCT l FROM Listing l JOIN l.communities c WHERE c IN :languages AND l.active = true")
+    List<Listing> findByCommunitiesInAndActiveTrue(@Param("languages") List<String> languages);
 
     // Новый метод для оптимизированной загрузки
     @Query("SELECT DISTINCT l FROM Listing l " +
