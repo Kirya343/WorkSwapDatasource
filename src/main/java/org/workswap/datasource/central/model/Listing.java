@@ -39,6 +39,10 @@ public class Listing {
         this.location = location;
     }
 
+    public Listing(User author) {
+        this.author = author;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -102,6 +106,9 @@ public class Listing {
 
     @Setter
     private boolean testMode = false;
+
+    @Setter
+    private boolean temporary = true;
 
     @Setter
     @Transient
