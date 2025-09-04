@@ -24,7 +24,7 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
     List<Listing> findByAuthorAndActiveTrue(User author);
 
-    List<Listing> findByAuthorAndTemporaryFalse(User author);
+    List<Listing> findByAuthorAndTemporary(User author, boolean temporary);
 
     @Query("SELECT l FROM Listing l WHERE l.author.email = :email")
     List<Listing> findByAuthorEmail(@Param("email") String email);
