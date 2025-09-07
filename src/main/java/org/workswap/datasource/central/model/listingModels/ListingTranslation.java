@@ -5,6 +5,7 @@ import org.workswap.datasource.central.model.Listing;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -27,7 +28,10 @@ public class ListingTranslation {
 
     private String language;
 
+    @Setter
     private String title;
+
+    @Setter
     @Column(length = 2000)
     private String description;
 

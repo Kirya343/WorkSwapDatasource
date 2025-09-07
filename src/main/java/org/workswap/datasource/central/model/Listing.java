@@ -94,6 +94,7 @@ public class Listing {
     private String imagePath;
 
     // Новые флаги для целевой аудитории
+    @Setter
     @ElementCollection
     @CollectionTable(name = "listing_communities", joinColumns = @JoinColumn(name = "listing_id"))
     @Column(name = "language")
