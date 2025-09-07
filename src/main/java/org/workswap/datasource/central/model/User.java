@@ -11,6 +11,7 @@ import org.workswap.datasource.admin.model.Task;
 import org.workswap.datasource.central.model.chat.ChatParticipant;
 import org.workswap.datasource.central.model.listingModels.Location;
 import org.workswap.datasource.central.model.user.Role;
+import org.workswap.datasource.central.model.user.UserSettings;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class User {
         this.roles = roles;
         this.termsAccepted = termsAccepted;
         this.termsAcceptanceDate = LocalDateTime.now();
+
+        this.settings = new UserSettings(this);
     }
 
     @Id
@@ -60,11 +63,6 @@ public class User {
 
     @Setter
     private String avatarUrl;
-
-    @Setter
-    private boolean phoneVisible = true;  // Скрывать или отображать телефон
-    @Setter
-    private boolean emailVisible = true;  // Скрывать или отображать email
 
     @Setter
     @ElementCollection(fetch = FetchType.EAGER)
@@ -100,9 +98,6 @@ public class User {
     private boolean enabled = true;
 
     @Setter
-    private String avatarType; // "uploaded", "google", "default"
-
-    @Setter
     private Double rating = 0.0; // Средний рейтинг пользователя
 
     @Setter
@@ -130,8 +125,6 @@ public class User {
     @Transient
     private List<Task> tasks;
 
-    // соц сети
-
-    @Setter
-    private boolean telegramConnected = false; // Подключен ли Telegram
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private UserSettings settings;
 }
