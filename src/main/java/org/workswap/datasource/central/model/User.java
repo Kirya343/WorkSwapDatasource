@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.workswap.common.enums.UserStatus;
 import org.workswap.datasource.admin.model.Task;
 import org.workswap.datasource.central.model.chat.ChatParticipant;
 import org.workswap.datasource.central.model.listingModels.Location;
@@ -92,10 +93,9 @@ public class User {
     private Set<Role> roles;
 
     @Setter
-    private boolean locked = false;
-
-    @Setter
-    private boolean enabled = true;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status = UserStatus.PENDING;
 
     @Setter
     private Double rating = 0.0; // Средний рейтинг пользователя

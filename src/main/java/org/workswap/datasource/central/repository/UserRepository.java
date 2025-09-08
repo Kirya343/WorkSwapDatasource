@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.workswap.common.enums.UserStatus;
 import org.workswap.datasource.central.model.User;
 import org.workswap.datasource.central.model.user.Role;
 
@@ -19,8 +21,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
-    @Query("SELECT COUNT(u) FROM User u WHERE u.enabled = true")
-    long countActiveUsers();
+    @Query("SELECT COUNT(u) FROM User u WHERE u.status = :status")
+    long countByStatus(@Param("status") UserStatus status);
 
     Page<User> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
