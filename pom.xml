@@ -11,7 +11,7 @@
 
 	<groupId>org.workswap</groupId>
 	<artifactId>workswap-datasource</artifactId>
-	<version>1.1.7</version>
+	<version>1.1.8</version>
 	
 	<distributionManagement>
         <repository>
@@ -40,7 +40,7 @@
 		<dependency>
             <groupId>org.workswap</groupId>
             <artifactId>workswap-common</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
         </dependency>
 
 		<dependency>

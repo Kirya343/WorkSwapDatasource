@@ -5,11 +5,9 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import org.workswap.datasource.central.model.Listing;
 import org.workswap.datasource.central.model.User;
@@ -55,7 +53,7 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
     @Query("SELECT l FROM Listing l JOIN l.communities c WHERE c = :language AND l.active = true ")
     List<Listing> findByCommunityAndActiveTrue(@Param("language") String language);
 
-    @Query("SELECT DISTINCT l FROM Listing l JOIN l.communities c WHERE c IN :languages AND l.active = true")
+    @Query("SELECT DISTINCT l FROM Listing l JOIN l.communities c WHERE c IN :languages AND l.active = true AND l.temporary = false")
     List<Listing> findByCommunitiesInAndActiveTrue(@Param("languages") List<String> languages);
 
     // Новый метод для оптимизированной загрузки
@@ -83,24 +81,6 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
         AND l.active = true
     """)
     List<Listing> searchAllFields(@Param("query") String query);
-
-    @Query("""
-        SELECT l FROM Listing l
-        JOIN l.communities c
-        WHERE l.category = :category
-        AND l.id <> :excludeId
-        AND c = :language 
-        """)
-    List<Listing> findTop4ByCategoryAndIdNotAndCommunity(
-        @Param("category") Category category,
-        @Param("excludeId") Long excludeId,
-        @Param("language") String language,
-        Pageable pageable);
-
-        
-    @EntityGraph(attributePaths = "translations")
-    Optional<Listing> findWithTranslationsById(@NonNull Long id);
-
 
     @Query(value = "select count(*) from favorite_listing where listing_id = :listingId", nativeQuery = true)
     int countFavoritesByListingId(@Param("listingId") Long listingId);
