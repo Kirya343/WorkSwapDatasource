@@ -1,4 +1,4 @@
-package org.workswap.datasource.central.repository;
+package org.workswap.datasource.central.repository.listing;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,15 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import org.workswap.datasource.central.model.Listing;
 import org.workswap.datasource.central.model.User;
 import org.workswap.datasource.central.model.listingModels.Category;
 import org.workswap.datasource.central.model.listingModels.Location;
 
-
-@Repository
-public interface ListingRepository extends JpaRepository<Listing, Long> {
+public interface ListingRepository extends JpaRepository<Listing, Long>, ListingRepositoryCustom {
     Page<Listing> findByCategory(String category, Pageable pageable);
     List<Listing> findByAuthor(User author);
 
