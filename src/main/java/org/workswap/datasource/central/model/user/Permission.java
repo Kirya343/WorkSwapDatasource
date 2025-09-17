@@ -13,7 +13,8 @@ public class Permission {
         this.name = name;
     }
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
