@@ -3,6 +3,7 @@ package org.workswap.datasource.central.model.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -17,6 +18,11 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(unique = true, nullable = false)
-    private String name; 
+    private String name;
+
+    @Setter
+    @Column(length = 512)
+    private String comment;
 }

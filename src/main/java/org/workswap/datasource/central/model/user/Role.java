@@ -12,21 +12,28 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Role {
 
-    public Role(String name) {
+    public Role(String name, int level) {
         this.name = name;
+        this.level = level;
     }
 
-    public Role(String name, Set<Permission> permissions) {
+    public Role(String name, Set<Permission> permissions, int level) {
         this.name = name;
         this.permissions = permissions;
+        this.level = level;
     }
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(unique = true)
-    private String name; // Пример: "ADMIN", "MODERATOR", "USER"
+    private String name;
+
+    @Setter
+    @Column(nullable = false)
+    private int level = 0;
 
     @Setter
     @ManyToMany(fetch = FetchType.EAGER)
