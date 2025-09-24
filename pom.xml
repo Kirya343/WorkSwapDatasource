@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.3</version>
+		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>org.workswap</groupId>
 	<artifactId>workswap-datasource</artifactId>
-	<version>1.1.12</version>
+	<version>1.1.13</version>
 	
 	<distributionManagement>
         <repository>
@@ -40,7 +40,7 @@
 		<dependency>
             <groupId>org.workswap</groupId>
             <artifactId>workswap-common</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
         </dependency>
 
 		<dependency>

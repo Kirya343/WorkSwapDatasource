@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.workswap.common.enums.UserStatus;
+import org.workswap.common.enums.UserType;
 import org.workswap.datasource.admin.model.Task;
 import org.workswap.datasource.central.model.chat.ChatParticipant;
 import org.workswap.datasource.central.model.listingModels.Location;
@@ -33,6 +34,7 @@ public class User {
                 String avatarUrl,
                 Set<Role> roles,
                 boolean termsAccepted) {
+        this.type = UserType.STANDARD;
         this.name = name;
         this.email = email;
         this.sub = sub;
@@ -44,19 +46,25 @@ public class User {
         this.settings = new UserSettings(this);
     }
 
+    public User(UserStatus status, UserType type, Set<Role> roles) {
+        this.status = status;
+        this.type = type;
+        this.roles = roles;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String sub; // Уникальный идентификатор от Google
 
     @Setter
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String email;
 
     @Setter
@@ -92,6 +100,10 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserType type = UserType.TEMP;
+
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -113,7 +125,7 @@ public class User {
     private boolean termsAccepted = false; // Приняты ли условия использования
 
     @Setter
-    private LocalDateTime termsAcceptanceDate;
+    private LocalDateTime termsAcceptanceDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<Review> profileReviews;
