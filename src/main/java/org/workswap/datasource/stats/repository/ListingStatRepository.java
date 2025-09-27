@@ -8,29 +8,31 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.workswap.datasource.stats.model.StatSnapshot;
+import org.workswap.common.enums.IntervalType;
+import org.workswap.datasource.stats.model.ListingStatSnapshot;
 
 @Repository
-public interface StatsRepository extends JpaRepository<StatSnapshot, Long>{
-    @Query("SELECT COUNT(s) FROM StatSnapshot s WHERE s.listingId = :listingId AND s.intervalType = :intervalType AND s.time >= :since")
+public interface ListingStatRepository extends JpaRepository<ListingStatSnapshot, Long> {
+
+    @Query("SELECT COUNT(s) FROM ListingStatSnapshot s WHERE s.listingId = :listingId AND s.intervalType = :intervalType AND s.time >= :since")
     long countRecentSnapshots(@Param("listingId") Long listingId,
-                            @Param("intervalType") StatSnapshot.IntervalType intervalType,
+                            @Param("intervalType") IntervalType intervalType,
                             @Param("since") LocalDateTime since);
 
-    List<StatSnapshot> findByListingIdAndIntervalTypeAndTimeAfter(
-        Long listingId,
-        StatSnapshot.IntervalType intervalType,
+    List<ListingStatSnapshot> findByListingIdAndIntervalTypeAndTimeAfter(
+        Long listingId, 
+        IntervalType intervalType,
         LocalDateTime time
     );
 
-    Optional<StatSnapshot> findTopByListingIdAndIntervalTypeAndTimeBeforeOrderByTimeDesc(
+    Optional<ListingStatSnapshot> findTopByListingIdAndIntervalTypeAndTimeBeforeOrderByTimeDesc(
         Long listingId,
-        StatSnapshot.IntervalType intervalType,
+        IntervalType intervalType,
         LocalDateTime time
     );
 
     @Query("""
-        SELECT s FROM StatSnapshot s 
+        SELECT s FROM ListingStatSnapshot s 
         WHERE s.listingId = :listingId 
             AND s.time BETWEEN :start AND :end 
             AND (:interval IS NULL OR s.intervalType = :interval)
@@ -40,17 +42,17 @@ public interface StatsRepository extends JpaRepository<StatSnapshot, Long>{
             FUNCTION('IF', :metric = 'rating', s.rating, NULL) ASC
         LIMIT 1
     """)
-    StatSnapshot findMinByMetric(
+    ListingStatSnapshot findMinByMetric(
         @Param("listingId") Long listingId,
         @Param("start") LocalDateTime start,
         @Param("end") LocalDateTime end,
-        @Param("interval") StatSnapshot.IntervalType interval,
+        @Param("interval") IntervalType interval,
         @Param("metric") String metric
     );
 
     
     @Query("""
-        SELECT s FROM StatSnapshot s 
+        SELECT s FROM ListingStatSnapshot s 
         WHERE s.listingId = :listingId 
           AND s.time BETWEEN :start AND :end 
           AND (:interval IS NULL OR s.intervalType = :interval)
@@ -61,13 +63,13 @@ public interface StatsRepository extends JpaRepository<StatSnapshot, Long>{
             FUNCTION('IF', :metric = 'rating', s.rating, NULL) DESC
         LIMIT 1
     """)
-    StatSnapshot findMaxByMetric(
+    ListingStatSnapshot findMaxByMetric(
         @Param("listingId") Long listingId,
         @Param("start") LocalDateTime start,
         @Param("end") LocalDateTime end,
-        @Param("interval") StatSnapshot.IntervalType interval,
+        @Param("interval") IntervalType interval,
         @Param("metric") String metric
     );
     
-    List<StatSnapshot> findAllByListingId(Long listingId);
+    List<ListingStatSnapshot> findAllByListingId(Long listingId);
 }
