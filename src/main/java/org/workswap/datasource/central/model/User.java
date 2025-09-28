@@ -34,7 +34,7 @@ public class User {
                 String avatarUrl,
                 Set<Role> roles,
                 boolean termsAccepted) {
-        this.type = UserType.STANDARD;
+        this.type = UserType.STANDART;
         this.name = name;
         this.email = email;
         this.sub = sub;
