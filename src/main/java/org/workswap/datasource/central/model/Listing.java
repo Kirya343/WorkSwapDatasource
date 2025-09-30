@@ -118,4 +118,11 @@ public class Listing {
     @Setter
     @Transient
     private String localizedDescription;
+
+    @PreRemove
+    private void removeFromUsersFavorites() {
+        for (User user : favoredByUsers) {
+            user.getFavoriteListings().remove(this);
+        }
+    }
 }
