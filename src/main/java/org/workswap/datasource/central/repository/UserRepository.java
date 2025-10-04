@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.workswap.common.enums.UserStatus;
+import org.workswap.common.enums.UserType;
 import org.workswap.datasource.central.model.User;
 import org.workswap.datasource.central.model.user.Role;
 
@@ -30,4 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByRoles_Name(String roleName);
     List<User> findByRoles_NameIn(List<String> roleNames);
 
+    List<User> findByType(UserType type);
+
+    int countByType(UserType type);
 }

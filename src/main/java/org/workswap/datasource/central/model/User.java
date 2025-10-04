@@ -134,6 +134,9 @@ public class User {
     private List<Review> reviews;
 
     @Setter
+    private LocalDateTime lastUsed;
+
+    @Setter
     @Transient
     private List<Task> tasks;
 
